@@ -1,7 +1,8 @@
 package com.BackendProyectoWeb.ProyectoWeb.Controlador;
 
 import com.BackendProyectoWeb.ProyectoWeb.Modelo.Usuario;
-import com.BackendProyectoWeb.ProyectoWeb.Servicio.UsuarioService;
+
+import com.BackendProyectoWeb.ProyectoWeb.Servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioServicio usuarioService;
 
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody Usuario datos) {

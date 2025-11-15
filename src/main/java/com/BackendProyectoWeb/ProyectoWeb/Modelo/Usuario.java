@@ -1,5 +1,10 @@
 package com.BackendProyectoWeb.ProyectoWeb.Modelo;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "usuarios")
@@ -9,8 +14,17 @@ public class Usuario {
     private Long id;
 
     private String nombre;
+    @Column(unique = true)
     private String correo;
     private String password;
+
+    public Usuario() {}
+
+    public Usuario(String nombre, String correo, String password) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.password = password;
+    }
 
     // Getters y setters
     public Long getId() { return id; }

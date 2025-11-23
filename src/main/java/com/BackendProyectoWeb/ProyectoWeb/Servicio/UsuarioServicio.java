@@ -18,7 +18,8 @@ public class UsuarioServicio {
     private CorreoServicio correoServicio;
 
     public Optional<Usuario> login(String email, String password) {
-        return usuarioRepository.findByEmailAndPassword(email, password);
+        return usuarioRepository.findByEmailAndPassword(email, password)
+                .filter(Usuario::isVerified);
     }
 
     public Usuario registrar(Usuario usuario) {
@@ -58,5 +59,9 @@ public class UsuarioServicio {
 
     private String generarCodigo() {
         return String.valueOf(100000 + new Random().nextInt(900000));
+    }
+
+    public Optional<Usuario> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
     }
 }

@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://127.0.0.1:5501", "http://localhost:5501"})
+
 public class UsuarioController {
 
     @Autowired
@@ -28,12 +29,22 @@ public class UsuarioController {
         Map<String, Object> response = new HashMap<>();
 
         if (usuario.isPresent()) {
+            // Usuario válido y verificado
             response.put("success", true);
             response.put("nombre", usuario.get().getNombre());
         } else {
-            response.put("success", false);
-            response.put("mensaje", "Correo o contraseña incorrectos");
+            // ¿Existe pero no está verificado?
+            Optional<Usuario> existe = usuarioServicio.findByEmail(datos.getEmail());
+
+            if (existe.isPresent() && !existe.get().isVerified()) {
+                response.put("success", false);
+                response.put("mensaje", "Tu cuenta no está verificada");
+            } else {
+                response.put("success", false);
+                response.put("mensaje", "Correo o contraseña incorrectos");
+            }
         }
+
         return response;
     }
 
@@ -55,6 +66,33 @@ public class UsuarioController {
 
         response.put("success", true);
         response.put("mensaje", "Se envió un código a tu correo");
+        response.put("email", nuevoUsuario.getEmail());
+
+        return response;
+    }
+
+    @PostMapping("/verificar")
+    public Map<String, Object> verificarCodigo(@RequestBody Map<String, String> datos) {
+        String email = datos.get("email");
+        String codigo = datos.get("codigo");
+
+        Map<String, Object> response = new HashMap<>();
+
+        boolean valido = usuarioServicio.verificarCuenta(email, codigo);
+
+        if (valido) {
+            response.put("success", true);
+            response.put("mensaje", "Cuenta verificada correctamente");
+        } else {
+            response.put("success", false);
+            response.put("mensaje", "Código incorrecto");
+        }
+
+        System.out.println("📩 Email recibido: " + datos.get("email"));
+        System.out.println("🔢 Código recibido: " + datos.get("codigo"));
+        System.out.println("JSON recibido: " + datos);
+
+
         return response;
     }
 }

@@ -15,14 +15,17 @@ public class Usuario {
 
     private String nombre;
     @Column(unique = true)
-    private String correo;
+    private String email;
     private String password;
+    private String verificationCode;
+    private boolean verified;
+
 
     public Usuario() {}
 
-    public Usuario(String nombre, String correo, String password) {
+    public Usuario(String nombre, String email, String password) {
         this.nombre = nombre;
-        this.correo = correo;
+        this.email = email;
         this.password = password;
     }
 
@@ -33,9 +36,15 @@ public class Usuario {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getVerificationCode(){return verificationCode;}
+    public void setVerificationCode(String verificationCode){this.verificationCode = verificationCode;}
+
+    public boolean isVerified(){return verified;}
+    public void setVerified(boolean verified){this.verified = verified;}
 }

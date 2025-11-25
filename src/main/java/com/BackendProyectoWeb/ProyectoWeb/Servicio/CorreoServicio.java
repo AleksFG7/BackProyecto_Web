@@ -1,0 +1,23 @@
+package com.BackendProyectoWeb.ProyectoWeb.Servicio;
+
+import com.BackendProyectoWeb.ProyectoWeb.Modelo.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CorreoServicio {
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void enviarCodigo(String email, String codigo) {
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setTo(email);
+        mensaje.setSubject("Código de verificación");
+        mensaje.setText("Tu código de verificación es: " + codigo);
+        mailSender.send(mensaje);
+    }
+
+
+}

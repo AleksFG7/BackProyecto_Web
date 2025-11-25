@@ -11,6 +11,7 @@ import jakarta.persistence.Column;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Long id;
 
     private String nombre;
@@ -24,6 +25,8 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(String nombre, String email, String password) {
+
+
         this.nombre = nombre;
         this.email = email;
         this.password = password;

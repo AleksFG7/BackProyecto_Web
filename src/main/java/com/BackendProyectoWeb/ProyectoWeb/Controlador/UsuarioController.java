@@ -30,6 +30,7 @@ public class UsuarioController {
 
         if (usuario.isPresent()) {
             // Usuario válido y verificado
+            response.put("id", usuario.get().getId());
             response.put("success", true);
             response.put("nombre", usuario.get().getNombre());
         } else {

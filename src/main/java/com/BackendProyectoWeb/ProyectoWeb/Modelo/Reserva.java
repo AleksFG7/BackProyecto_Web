@@ -15,6 +15,8 @@ public class Reserva {
     @JoinColumn(name = "usuario_id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 
+    private int numeroReserva;
+
     @ManyToOne
     @JoinColumn(name = "paquete_id_paquete", referencedColumnName = "id_paquete")
     private Paquete paquete;
@@ -33,4 +35,7 @@ public class Reserva {
     public LocalDateTime getFechaReserva(){return fechaReserva;}
     public void setFechaReserva(LocalDateTime fechaReserva){this.fechaReserva = fechaReserva;}
 
+
+    public int getNumeroReserva(){return numeroReserva;}
+    public void setNumeroReserva(int numeroReserva){this.numeroReserva = numeroReserva;}
 }
